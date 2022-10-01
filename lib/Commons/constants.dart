@@ -1,17 +1,8 @@
+import 'package:feather_icons/feather_icons.dart';
 import 'package:ffeed_hub/Commons/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-CircleAvatar appLogo(BuildContext context) {
-  return CircleAvatar(
-    backgroundColor: primaryColor,
-    radius: 50,
-    child: Text("OMP",
-        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-            fontSize: 30, fontWeight: FontWeight.bold, color: whiteColor)),
-  );
-}
 
 showToast({String? msg, Color? color}) {
   return Fluttertoast.showToast(
@@ -31,4 +22,47 @@ startLoading() {
 
 stopLoading() {
   return EasyLoading.dismiss();
+}
+
+AppBar commonAppBar(TextStyle appBarTextStyle) {
+  return AppBar(
+    centerTitle: false,
+    backgroundColor: primaryColor,
+    actions: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                const Icon(
+                  Icons.arrow_drop_down,
+                  color: blackColor,
+                ),
+                Text(
+                  "Current location",
+                  style: appBarTextStyle,
+                ),
+                const SizedBox(width: 10),
+                const Icon(
+                  FeatherIcons.mapPin,
+                  color: blackColor,
+                  size: 15,
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 25),
+              child: Text(
+                "Kasoa",
+                style: appBarTextStyle,
+              ),
+            )
+          ],
+        ),
+      )
+    ],
+  );
 }
