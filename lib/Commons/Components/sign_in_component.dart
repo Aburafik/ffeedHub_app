@@ -4,7 +4,6 @@ import 'package:ffeed_hub/Commons/Components/text_form_field.dart';
 import 'package:ffeed_hub/Commons/color_theme.dart';
 import 'package:flutter/material.dart';
 
-
 class SignInFormComponent extends StatefulWidget {
   const SignInFormComponent({Key? key}) : super(key: key);
 
@@ -66,7 +65,8 @@ class _SignInFormComponentState extends State<SignInFormComponent> {
               )),
           CustomButtonComponent(
               buttonText: "Login",
-              onPressed: () async {
+              onPressed: () {
+                Navigator.pushNamed(context,  "/choose-role");
                 // if (_formKey.currentState!.validate()) {
                 //   startLoading();
 

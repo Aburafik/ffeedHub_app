@@ -9,13 +9,6 @@ class ChooseRole extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Text("Register as a..",
-            style:
-                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18)),
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -32,15 +25,14 @@ class ChooseRole extends StatelessWidget {
                   icon: FeatherIcons.users,
                   title: "Donar",
                   subTitle: "Donate your foood\n for needy",
-                  onTap: () => Navigator.pushNamed(context, "/sign-up-view"),
+                  onTap: () => Navigator.pushNamed(context, "/home-view"),
                 ),
                 UserAuthTypeCard(
                   color: greenColor,
                   icon: FeatherIcons.user,
                   title: "Volunteer",
                   subTitle: "Food pickUp and\n Deliver",
-                  onTap: () =>
-                      Navigator.pushNamed(context, "/register-technician"),
+                  onTap: () => Navigator.pushNamed(context, "/home-view"),
                 ),
               ],
             ),

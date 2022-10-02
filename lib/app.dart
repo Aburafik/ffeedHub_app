@@ -1,6 +1,8 @@
 import 'package:ffeed_hub/Views/Auths/choose_role.dart';
 import 'package:ffeed_hub/Views/Auths/sign_in_view.dart';
 import 'package:ffeed_hub/Views/Auths/sign_up_view.dart';
+import 'package:ffeed_hub/Views/Donate/donate.dart';
+import 'package:ffeed_hub/Views/FoodPickUps/pick_up_request_view.dart';
 import 'package:ffeed_hub/Views/Home/home_view.dart';
 import 'package:ffeed_hub/Views/Onboarding/onboarding_view.dart';
 import 'package:ffeed_hub/Views/Onboarding/splash_screen.dart';
@@ -18,14 +20,14 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/": (context) => const HomeView(),
-        "/sign-in-view": (context) => SignInVC(),
-        "/onboarding-view": (context) => OnboardingView(),
-        "/choose-role": (context) => ChooseRole(),
-        "/sign-up": (context) => SignUpVC()
-
-
-      
+        "/": (context) => const SplashScreenView(),
+        "/sign-in-view": (context) => const SignInVC(),
+        "/onboarding-view": (context) => const OnboardingView(),
+        "/choose-role": (context) => const ChooseRole(),
+        "/sign-up": (context) => const SignUpVC(),
+        "/home-view": (context) => const HomeView(),
+        "/donate-view": (context) => const DonateFood(),
+        "/pickup-request-view": (context) => const FoodPickRequestVC(),
       },
     );
   }

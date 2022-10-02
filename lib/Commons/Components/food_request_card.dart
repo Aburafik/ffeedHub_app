@@ -18,25 +18,27 @@ class FoodRequestCard extends StatelessWidget {
         height: MediaQuery.of(context).size.height / 3,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 25,
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Cape Deaf",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 20),
-                  ),
-                ],
-              ),
+            SizedBox(height: 2),
+            Row(
+              children: [
+                const SizedBox(
+                  width:5,
+                ),
+                const CircleAvatar(
+                  radius: 25,
+                  backgroundColor: lightGreyColor,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  "Cape Deaf",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 20),
+                ),
+              ],
             ),
             Expanded(
               child: Container(
