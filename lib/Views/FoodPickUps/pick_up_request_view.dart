@@ -1,8 +1,8 @@
 import 'package:feather_icons/feather_icons.dart';
+import 'package:ffeed_hub/Commons/Components/common_drawer.dart';
 import 'package:ffeed_hub/Commons/Components/food_request_card.dart';
 import 'package:ffeed_hub/Commons/color_theme.dart';
 import 'package:ffeed_hub/Commons/constants.dart';
-import 'package:ffeed_hub/Views/Home/home_view.dart';
 import 'package:flutter/material.dart';
 
 class FoodPickRequestVC extends StatelessWidget {
@@ -53,7 +53,7 @@ class FoodPickRequestVC extends StatelessWidget {
               child: ListView.builder(
                 controller: scrollController,
                 itemCount: 10,
-                itemBuilder: (context, index) => const FoodRequestCard(),
+                itemBuilder: (context, index) => const PickUpRequestCard(),
               ),
             ))
           ],

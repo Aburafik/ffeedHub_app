@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         "/choose-role": (context) => const ChooseRole(),
         "/sign-up": (context) => const SignUpVC(),
         "/home-view": (context) => const HomeView(),
-        "/donate-view": (context) => const DonateFood(),
+        "/donate-view": (context) =>  DonateFood(),
         "/pickup-request-view": (context) => const FoodPickRequestVC(),
       },
     );
