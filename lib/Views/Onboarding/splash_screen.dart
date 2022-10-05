@@ -13,7 +13,7 @@ class SplashScreenView extends StatefulWidget {
 class _SplashScreenViewState extends State<SplashScreenView> {
   @override
   void initState() {
-    Timer(Duration(seconds: 3),
+    Timer(const Duration(seconds: 3),
         () => Navigator.pushNamed(context, "/onboarding-view"));
     super.initState();
   }
@@ -25,23 +25,34 @@ class _SplashScreenViewState extends State<SplashScreenView> {
         .bodyText1!
         .copyWith(fontSize: 20, color: blackColor);
     return Scaffold(
+      backgroundColor: whiteColor,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.handshake,
-              size: 50,
-            ),
-            RichText(
-                text: TextSpan(text: "fFeed", style: textStyle, children: [
-              TextSpan(
-                  text: "Hub",
-                  style: textStyle.copyWith(
-                      color: greenColor, fontWeight: FontWeight.bold))
-            ]))
-          ],
-        ),
+        child: Image.asset("images/logo2.jpg")
+        
+        // Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     const Icon(
+        //       Icons.handshake,
+        //       size: 50,
+        //     ),
+        //     RichText(
+        //       text: TextSpan(
+        //         text: "fFeed",
+        //         style: textStyle,
+        //         children: [
+        //           TextSpan(
+        //               text: "Hub",
+        //               style: textStyle.copyWith(
+        //                   color: greenColor, fontWeight: FontWeight.bold))
+        //         ],
+        //       ),
+        //     )
+        //   ],
+        // ),
+
+
+
       ),
     );
   }

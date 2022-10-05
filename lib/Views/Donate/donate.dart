@@ -3,11 +3,21 @@ import 'package:ffeed_hub/Commons/Components/custom_button.dart';
 import 'package:ffeed_hub/Commons/color_theme.dart';
 import 'package:flutter/material.dart';
 
-class DonateFood extends StatelessWidget {
+class DonateFood extends StatefulWidget {
   DonateFood({super.key});
+
+  @override
+  State<DonateFood> createState() => _DonateFoodState();
+}
+
+class _DonateFoodState extends State<DonateFood> {
   TextEditingController foodNameController = TextEditingController();
+
   TextEditingController foodQuantityController = TextEditingController();
+
   TextEditingController moreInforController = TextEditingController();
+
+  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -91,20 +101,35 @@ class DonateFood extends StatelessWidget {
                   ),
                   children: [
                     RadioListTile(
-                        value: "Vega",
-                        groupValue: "Vega",
-                        title: Text("Vega"),
-                        onChanged: (value) {}),
+                      value: "Vega",
+                      groupValue: selectedValue,
+                      title: const Text("Vega"),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedValue = value;
+                        });
+                      },
+                    ),
                     RadioListTile(
-                        value: "Vega",
-                        groupValue: "Vega",
-                        title: Text("Vega"),
-                        onChanged: (value) {}),
+                      value: "Vegitable",
+                      groupValue: selectedValue,
+                      title: const Text("Vegitable"),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedValue = value;
+                        });
+                      },
+                    ),
                     RadioListTile(
-                        value: "Vega",
-                        groupValue: "Vega",
-                        title: Text("Vega"),
-                        onChanged: (value) {})
+                      value: "Non Veg",
+                      groupValue: selectedValue,
+                      title: const Text("Non Veg"),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedValue = value;
+                        });
+                      },
+                    )
                   ],
                 ),
               ),
@@ -122,7 +147,9 @@ class DonateFood extends StatelessWidget {
               ),
               CustomButtonComponent(
                 buttonText: "Comtinue",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, "/donate-details-view");
+                },
               )
             ],
           ),
