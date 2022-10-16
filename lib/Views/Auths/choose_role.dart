@@ -32,7 +32,8 @@ class ChooseRole extends StatelessWidget {
                   icon: FeatherIcons.user,
                   title: "Volunteer",
                   subTitle: "Food pickUp and\n Deliver",
-                  onTap: () => Navigator.pushNamed(context, "/home-view"),
+                  onTap: () =>
+                      Navigator.pushNamed(context, "/pickup-request-view"),
                 ),
               ],
             ),
@@ -43,7 +44,7 @@ class ChooseRole extends StatelessWidget {
   }
 } //"/register-technician"
 
-class UserAuthTypeCard extends StatelessWidget {
+     class UserAuthTypeCard extends StatelessWidget {
   UserAuthTypeCard(
       {Key? key, this.onTap, this.title, this.icon, this.subTitle, this.color})
       : super(key: key);

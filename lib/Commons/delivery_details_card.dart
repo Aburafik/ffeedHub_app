@@ -2,10 +2,9 @@ import 'package:ffeed_hub/Commons/color_theme.dart';
 import 'package:flutter/material.dart';
 
 class DeliveryDetailsCard extends StatelessWidget {
-  const DeliveryDetailsCard({
-    Key? key,
-  }) : super(key: key);
-
+  DeliveryDetailsCard({Key? key, this.canDelete = true,this.onTap}) : super(key: key);
+  bool canDelete = true;
+  Function()? onTap;
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context)
@@ -46,7 +45,12 @@ class DeliveryDetailsCard extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [Text("Cooked 2 hours ago"), Icon(Icons.delete)],
+              children: [
+                const Text("Cooked 2 hours ago"),
+                canDelete
+                    ? GestureDetector(child: Icon(Icons.delete), onTap: onTap)
+                    : Wrap(),
+              ],
             )
           ],
         ),

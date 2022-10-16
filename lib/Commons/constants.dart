@@ -66,3 +66,5 @@ AppBar commonAppBar(TextStyle appBarTextStyle) {
     ],
   );
 }
+
+    var borderRadius2 = BorderRadius.circular(10);

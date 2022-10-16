@@ -42,7 +42,7 @@ class _DonateFoodDetailsState extends State<DonateFoodDetails> {
                 child: Text("Food Details",
                     style: textStyle.copyWith(fontWeight: FontWeight.bold)),
               ),
-              const DeliveryDetailsCard(),
+               DeliveryDetailsCard(onTap: (){},),
               const SizedBox(height: 50),
               Text(
                 "Delivery Type",
@@ -127,10 +127,12 @@ class _DonateFoodDetailsState extends State<DonateFoodDetails> {
                   ],
                 ),
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               CustomButtonComponent(
                 buttonText: "CONFIRM",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, "/successMesssage");
+                },
               ),
             ],
           ),
@@ -140,8 +142,7 @@ class _DonateFoodDetailsState extends State<DonateFoodDetails> {
   }
 }
 
-   
-   
+    
 
 
 //https://www.behance.net/gallery/146348903/UX-Portfolio-School-Management?tracking_source=search_projects%7Cschool%20mobile%20app%20management
