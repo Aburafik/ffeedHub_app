@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         "/donate-details-view": (context) =>  const DonateFoodDetails(),
         "/successMesssage": (context) =>  const RequestSuccessMessageComponent(),
         "/pickup-details": (context) =>  const PickUpDetailsVC(),
-        "/navigation_view": (context) =>  const LocationNavigationVC(),
+        "/navigation_view": (context) =>  LocationNavigationVC(),
 
       },
     );
