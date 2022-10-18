@@ -13,6 +13,7 @@ class DeliveryDetailsCard extends StatelessWidget {
         .copyWith(fontSize: 20, color: blackColor);
 
     return Card(
+      elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: yellowColor,
       child: Container(

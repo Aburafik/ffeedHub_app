@@ -15,7 +15,7 @@ class PickupTimeSelectorComponent extends StatelessWidget {
           hintText: "Mnt",
           filled: true,
           fillColor: lightGreyColor,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+          contentPadding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
     ));
   }

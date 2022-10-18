@@ -43,7 +43,7 @@ dependencies:
   cupertino_stepper: ^0.2.1
   flutter_map: ^3.0.0
   latlong2: ^0.8.1
-  flutter_mapbox_navigation: ^0.0.26
+  url_launcher: ^6.1.6
 
 dev_dependencies:
   flutter_test:

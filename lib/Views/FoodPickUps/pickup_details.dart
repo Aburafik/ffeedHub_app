@@ -28,7 +28,9 @@ class _PickUpDetailsVCState extends State<PickUpDetailsVC> {
           style: textStyle,
         ),
       ),
-      body: LayoutBuilder(
+      body: 
+      
+      LayoutBuilder(
         builder: (context, boxConstraints) => ConstrainedBox(
           constraints: BoxConstraints(minHeight: boxConstraints.maxHeight),
           child: SafeArea(
@@ -79,6 +81,8 @@ class _PickUpDetailsVCState extends State<PickUpDetailsVC> {
           ),
         ),
       ),
+
+      
     );
   }
 
@@ -113,10 +117,10 @@ class _PickUpDetailsVCState extends State<PickUpDetailsVC> {
       state: state,
       isActive: isActive,
       content: LimitedBox(
-        maxWidth: 300,
+        maxWidth: MediaQuery.of(context).size.width,
         maxHeight: 150,
         child: Card(
-          elevation: 2,
+          elevation: 0,
           shape: RoundedRectangleBorder(borderRadius: borderRadius2),
           child: Row(
             children: [
@@ -162,4 +166,43 @@ class _PickUpDetailsVCState extends State<PickUpDetailsVC> {
       ),
     );
   }
+}
+
+
+  class RPSCustomPainter extends CustomPainter{
+  
+  @override
+  void paint(Canvas canvas, Size size) {
+    
+    
+
+  Paint paint0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+     
+         
+    Path path0 = Path();
+    path0.moveTo(size.width*0.0012500,size.height*0.9975000);
+    path0.lineTo(0,size.height*0.2525000);
+    path0.quadraticBezierTo(size.width*0.2334375,size.height*0.2487500,size.width*0.3112500,size.height*0.2475000);
+    path0.cubicTo(size.width*0.3725750,size.height*0.2494750,size.width*0.3686000,size.height*0.1728000,size.width*0.3725500,size.height*0.1285750);
+    path0.cubicTo(size.width*0.3980750,size.height*0.0575750,size.width*0.4039250,size.height*0.0103250,size.width*0.4999125,size.height*0.0122250);
+    path0.cubicTo(size.width*0.6008875,size.height*0.0062500,size.width*0.6054125,size.height*0.0652000,size.width*0.6270375,size.height*0.1318500);
+    path0.cubicTo(size.width*0.6386250,size.height*0.1699500,size.width*0.6270000,size.height*0.2494000,size.width*0.6875000,size.height*0.2450000);
+    path0.quadraticBezierTo(size.width*0.7650000,size.height*0.2462500,size.width*0.9975000,size.height*0.2500000);
+    path0.lineTo(size.width*0.9987500,size.height*0.9975000);
+    path0.lineTo(size.width*0.0012500,size.height*0.9975000);
+    path0.close();
+
+    canvas.drawPath(path0, paint0);
+  
+    
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+  
 }

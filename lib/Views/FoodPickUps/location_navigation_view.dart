@@ -3,6 +3,7 @@ import 'package:ffeed_hub/Commons/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LocationNavigationVC extends StatelessWidget {
   LocationNavigationVC({super.key});
@@ -15,6 +16,17 @@ class LocationNavigationVC extends StatelessWidget {
 
   // 5.4980877,-0.4162725
   String tileID = "cl9cyzsho005i14pcm270gyxb";
+// 5.5475508,-0.3830625
+  static void navigateTo(double lat, double lng) async {
+    var uri = Uri.parse(
+        "https://www.google.com/maps/dir/?api=1&origin=5.4980877,-0.4162725&destination=5.5475508,-0.3830625&travelmode=driving&dir_action=navigate");
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch ${uri.toString()}';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle =
@@ -51,8 +63,7 @@ class LocationNavigationVC extends StatelessWidget {
             ),
             children: [
               TileLayer(
-                urlTemplate:
-                    styleID,
+                urlTemplate: styleID,
                 additionalOptions: {
                   'mapStyleId': tileID,
                   'accessToken': acccresToken,
@@ -60,61 +71,72 @@ class LocationNavigationVC extends StatelessWidget {
               )
             ],
           ),
-
-
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              height: MediaQuery.of(context).size.height / 4.5,
+              height: MediaQuery.of(context).size.height / 4,
               color: whiteColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "Head To Pickup Location",
-                    style: textStyle.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        height: 70,
-                        width: 70,
-                        decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(10)),
-                      ),
-                      const SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "Head To Pickup Location",
+                      style: textStyle.copyWith(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
                         children: [
-                          Text("Kasoa", style: textStyle),
-                          const SizedBox(height: 10),
-                          Text(
-                            "Kasoa",
-                            style: textStyle.copyWith(
-                                fontWeight: FontWeight.normal, fontSize: 18),
+                          Container(
+                            height: 70,
+                            width: 70,
+                            decoration: BoxDecoration(
+                                image: const DecorationImage(
+                                    image: AssetImage("images/oph.jpeg"),
+                                    fit: BoxFit.cover),
+                                color: primaryColor,
+                                borderRadius: BorderRadius.circular(10)),
                           ),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Kasoa", style: textStyle),
+                              const SizedBox(height: 10),
+                              Text(
+                                "Kasoa",
+                                style: textStyle.copyWith(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 18),
+                              ),
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  ),
-                  CustomButtonComponent(
-                    buttonText: "PICKUP COMPLETE",
-                    onPressed: () {},
-                  ),
-                ],
+                      ),
+                    ),
+                    CustomButtonComponent(
+                      buttonText: "PICKUP COMPLETE",
+                      onPressed: () {
+                        navigateTo(5.4980877, -0.4162725);
+
+                        // static final myLocation = LatLng(5.4980877, -0.4162725);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           )
-
-          
         ],
       ),
     );
   }
 }
+
+
 
 //  class RPSCustomPainter extends CustomPainter {
 //   @override
@@ -171,3 +193,7 @@ class LocationNavigationVC extends StatelessWidget {
 //     return true;
 //   }
 // }
+
+
+
+

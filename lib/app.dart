@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/": (context) => const SplashScreenView(),
+        "/": (context) => const PickUpDetailsVC(),
         "/sign-in-view": (context) => const SignInVC(),
         "/onboarding-view": (context) => const OnboardingView(),
         "/choose-role": (context) => const ChooseRole(),

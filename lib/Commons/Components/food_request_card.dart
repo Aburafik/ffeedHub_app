@@ -15,7 +15,7 @@ class FoodRequestCard extends StatelessWidget {
       },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-        elevation: 5,
+        elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         color: yellowColor,
         child: SizedBox(
@@ -96,7 +96,7 @@ class PickUpRequestCard extends StatelessWidget {
       },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-        elevation: 5,
+        elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         color: yellowColor,
         child: SizedBox(

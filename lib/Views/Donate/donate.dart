@@ -42,7 +42,7 @@ class _DonateFoodState extends State<DonateFood> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                elevation: 5,
+                elevation: 0,
                 color: yellowColor,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -171,8 +171,10 @@ class CommonTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
       child: TextField(
+        
         controller: controller,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: 5,horizontal: 5),
           hintText: hintText,
           filled: true,
           fillColor: lightGreyColor,
