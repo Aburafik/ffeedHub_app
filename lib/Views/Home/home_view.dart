@@ -3,17 +3,39 @@ import 'package:ffeed_hub/Commons/Components/common_drawer.dart';
 import 'package:ffeed_hub/Commons/Components/food_request_card.dart';
 import 'package:ffeed_hub/Commons/color_theme.dart';
 import 'package:ffeed_hub/Commons/constants.dart';
+import 'package:ffeed_hub/Providers/location_provider.dart';
+import 'package:ffeed_hub/Services/location_services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  LocationService locationService = LocationService();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
+ 
+
+  @override
   Widget build(BuildContext context) {
+    LocationProvider userlocationCordinates =
+        Provider.of<LocationProvider>(context);
+    print(userlocationCordinates.getUserLocationCordinates);
     TextStyle appBarTextStyle = Theme.of(context).textTheme.bodyText1!;
     ScrollController scrollController = ScrollController();
     return Scaffold(
-      appBar: commonAppBar(appBarTextStyle),
+      appBar: commonAppBar(
+          appBarTextStyle, userlocationCordinates.getUserLocationCordinates),
       drawer: const HomeDrawer(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -69,6 +91,3 @@ class HomeView extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -3,17 +3,22 @@ import 'package:ffeed_hub/Commons/Components/common_drawer.dart';
 import 'package:ffeed_hub/Commons/Components/food_request_card.dart';
 import 'package:ffeed_hub/Commons/color_theme.dart';
 import 'package:ffeed_hub/Commons/constants.dart';
+import 'package:ffeed_hub/Providers/location_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FoodPickRequestVC extends StatelessWidget {
   const FoodPickRequestVC({super.key});
 
   @override
   Widget build(BuildContext context) {
+    LocationProvider userlocationCordinates =
+        Provider.of<LocationProvider>(context);
     TextStyle appBarTextStyle = Theme.of(context).textTheme.bodyText1!;
     ScrollController scrollController = ScrollController();
     return Scaffold(
-      appBar: commonAppBar(appBarTextStyle),
+      appBar: commonAppBar(
+          appBarTextStyle, userlocationCordinates.getUserLocationCordinates),
       drawer: const HomeDrawer(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),

@@ -2,7 +2,7 @@ import 'package:ffeed_hub/Commons/Components/custom_button.dart';
 import 'package:ffeed_hub/Commons/Components/pickup_time_component.dart';
 import 'package:ffeed_hub/Commons/Components/time_zone_selector.dart';
 import 'package:ffeed_hub/Commons/color_theme.dart';
-import 'package:ffeed_hub/Commons/delivery_details_card.dart';
+import 'package:ffeed_hub/Commons/Components/delivery_details_card.dart';
 import 'package:flutter/material.dart';
 
 class DonateFoodDetails extends StatefulWidget {

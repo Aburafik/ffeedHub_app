@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ffeed_hub/Commons/color_theme.dart';
+import 'package:ffeed_hub/Services/location_services.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreenView extends StatefulWidget {
@@ -11,11 +12,18 @@ class SplashScreenView extends StatefulWidget {
 }
 
 class _SplashScreenViewState extends State<SplashScreenView> {
+  LocationService locationService = LocationService();
+
   @override
   void initState() {
     Timer(const Duration(seconds: 3),
         () => Navigator.pushNamed(context, "/onboarding-view"));
     super.initState();
+    getUserLocation();
+  }
+
+  getUserLocation() {
+    locationService.determinePosition(context);
   }
 
   @override
@@ -26,34 +34,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
         .copyWith(fontSize: 20, color: blackColor);
     return Scaffold(
       backgroundColor: whiteColor,
-      body: Center(
-        child: Image.asset("images/logo2.jpg")
-        
-        // Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     const Icon(
-        //       Icons.handshake,
-        //       size: 50,
-        //     ),
-        //     RichText(
-        //       text: TextSpan(
-        //         text: "fFeed",
-        //         style: textStyle,
-        //         children: [
-        //           TextSpan(
-        //               text: "Hub",
-        //               style: textStyle.copyWith(
-        //                   color: greenColor, fontWeight: FontWeight.bold))
-        //         ],
-        //       ),
-        //     )
-        //   ],
-        // ),
-
-
-
-      ),
+      body: Center(child: Image.asset("images/logo2.jpg")),
     );
   }
 }

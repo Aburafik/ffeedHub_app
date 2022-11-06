@@ -3,6 +3,7 @@ import 'package:ffeed_hub/Commons/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
 
 showToast({String? msg, Color? color}) {
   return Fluttertoast.showToast(
@@ -24,7 +25,9 @@ stopLoading() {
   return EasyLoading.dismiss();
 }
 
-AppBar commonAppBar(TextStyle appBarTextStyle) {
+AppBar commonAppBar(TextStyle appBarTextStyle, Map cordinates) {
+  double lat = cordinates['lat'];
+  double lng = cordinates['lng'];
   return AppBar(
     centerTitle: false,
     backgroundColor: primaryColor,
@@ -55,10 +58,13 @@ AppBar commonAppBar(TextStyle appBarTextStyle) {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 25),
-              child: Text(
-                "Kasoa",
-                style: appBarTextStyle,
-              ),
+              child: FutureBuilder<List<Placemark>>(
+                  future: placemarkFromCoordinates(lat, lng),
+                  builder: (context, snapshot) {
+                    final data = snapshot.data ?? [];
+                    return Text(data.isEmpty ? 'N/A' : '${data[0].name}',
+                        style: appBarTextStyle);
+                  }),
             )
           ],
         ),
@@ -67,4 +73,4 @@ AppBar commonAppBar(TextStyle appBarTextStyle) {
   );
 }
 
-    var borderRadius2 = BorderRadius.circular(10);
+var borderRadius2 = BorderRadius.circular(10);
