@@ -49,6 +49,7 @@ dependencies:
   shared_preferences: ^2.0.15
   provider: ^6.0.4
   im_animations: ^0.1.2
+  firebase_core: ^2.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

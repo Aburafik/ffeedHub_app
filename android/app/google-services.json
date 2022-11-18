@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1005902038759",
+    "project_id": "feedhub-a141f",
+    "storage_bucket": "feedhub-a141f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005902038759:android:e840bd323f8f8ad3ddc442",
+        "android_client_info": {
+          "package_name": "com.example.ffeed_hub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005902038759-0ckddck703lnklnr2246sass84dt5lr4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCR8J3y_cZgkN6mk-ljIEkrT-v5WKi9EYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005902038759-0ckddck703lnklnr2246sass84dt5lr4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
