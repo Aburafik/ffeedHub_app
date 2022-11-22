@@ -54,15 +54,15 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
-      body: GestureDetector(
-        onTap: () {},
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: ListView(
             children: <Widget>[
               const SizedBox(height: 30),
+
               // SizedBox(
               //   height: MediaQuery.of(context).size.height / 3,
               //   child: ClipRRect(
@@ -70,6 +70,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
               //     child: Image.asset(Constants.otpGifImage),
               //   ),
               // ),
+
               const SizedBox(height: 8),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -87,11 +88,13 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                       text: "Enter the code sent to ",
                       children: [
                         TextSpan(
-                            text: "${widget.phoneNumber}",
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15)),
+                          text: "${widget.phoneNumber}",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
                       ],
                       style:
                           const TextStyle(color: Colors.black54, fontSize: 15)),
@@ -115,9 +118,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                       length: 4,
                       obscureText: true,
                       obscuringCharacter: '*',
-                      obscuringWidget: const FlutterLogo(
-                        size: 24,
-                      ),
+
                       blinkWhenObscuring: true,
                       animationType: AnimationType.fade,
                       validator: (v) {
@@ -128,8 +129,8 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         }
                       },
                       pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(5),
+                        shape: PinCodeFieldShape.circle,
+                        // borderRadius: BorderRadius.circular(5),
                         fieldHeight: 50,
                         fieldWidth: 40,
                         activeFillColor: Colors.white,
@@ -140,13 +141,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                       errorAnimationController: errorController,
                       controller: textEditingController,
                       keyboardType: TextInputType.number,
-                      boxShadows: const [
-                        BoxShadow(
-                          offset: Offset(0, 1),
-                          color: Colors.black12,
-                          blurRadius: 10,
-                        )
-                      ],
+
                       onCompleted: (v) {
                         debugPrint("Completed");
                       },
@@ -203,25 +198,24 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 height: 14,
               ),
               CustomButtonComponent(
-                onPressed: () {
-                  formKey.currentState!.validate();
-                  // conditions for validating
-                  if (currentText.length != 6 || currentText != "123456") {
-                    errorController!.add(ErrorAnimationType
-                        .shake); // Triggering error shake animation
-                    setState(() => hasError = true);
-                  } else {
-                    setState(
-                      () {
-                        hasError = false;
-                        snackBar("OTP Verified!!");
-                      },
-                    );
-                  }
-                },
-                buttonText:"VERIFY"
-                 
-              ),
+                  onPressed: () {
+                    formKey.currentState!.validate();
+                    // conditions for validating
+                    if (currentText.length != 4 || currentText != "1234") {
+                      errorController!.add(
+                        ErrorAnimationType.shake,
+                      ); // Triggering error shake animation
+                      setState(() => hasError = true);
+                    } else {
+                      setState(
+                        () {
+                          hasError = false;
+                          snackBar("OTP Verified!!");
+                        },
+                      );
+                    }
+                  },
+                  buttonText: "VERIFY"),
               const SizedBox(
                 height: 16,
               ),
@@ -239,9 +233,11 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                       child: TextButton(
                     child: const Text("Set Text"),
                     onPressed: () {
-                      setState(() {
-                        textEditingController.text = "123456";
-                      });
+                      setState(
+                        () {
+                          textEditingController.text = "1234";
+                        },
+                      );
                     },
                   )),
                 ],
