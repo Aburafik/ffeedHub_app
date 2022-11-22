@@ -1,3 +1,5 @@
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_pickers.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:ffeed_hub/Commons/Components/custom_button.dart';
 import 'package:ffeed_hub/Commons/Components/text_form_field.dart';
@@ -17,7 +19,17 @@ class _SignInFormComponentState extends State<SignInFormComponent> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   // AuthUser _authUser = AuthUser();
-
+  Country _selectedDialogCountry =
+      CountryPickerUtils.getCountryByPhoneCode('90');
+  Widget _buildDialogItem(Country country) => Row(
+        children: <Widget>[
+          CountryPickerUtils.getDefaultFlagImage(country),
+          SizedBox(width: 8.0),
+          Text("+${country.phoneCode}"),
+          SizedBox(width: 8.0),
+          // Flexible(child: Text(country.name))
+        ],
+      );
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -26,30 +38,27 @@ class _SignInFormComponentState extends State<SignInFormComponent> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          CustomTextFormField(
-            controller: emailController,
-            hintText: "Enter email",
-            hasPreffix: true,
-            prefixIcon: FeatherIcons.mail,
+          Row(
+            children: [
+              SizedBox(
+                width: 86,
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  onTap: _openCountryPickerDialog,
+                  title: _buildDialogItem(_selectedDialogCountry),
+                ),
+              ),
+              Expanded(
+                child: CustomTextFormField(
+                  controller: emailController,
+                  hintText: "Enter phoneNumber",
+                  hasPreffix: true,
+                  // prefixIcon: FeatherIcons.mail,
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            child: CustomTextFormField(
-              controller: passwordController,
-              hintText: "Enter password",
-              obscureText: isVisible,
-              hasSuffix: true,
-              suffixIcon: isVisible ? Icons.visibility_off : Icons.visibility,
-              hasPreffix: true,
-              prefixIcon: FeatherIcons.lock,
-              onPressed: () {
-                setState(() {
-                  isVisible = !isVisible;
-                });
-              },
-            ),
-          ),
           Align(
               alignment: Alignment.centerRight,
               child: GestureDetector(
@@ -66,17 +75,8 @@ class _SignInFormComponentState extends State<SignInFormComponent> {
           CustomButtonComponent(
               buttonText: "Login",
               onPressed: () {
-                Navigator.pushNamed(context,  "/choose-role");
+                Navigator.pushNamed(context, "/code-verification-view");
                 // if (_formKey.currentState!.validate()) {
-                //   startLoading();
-
-                //   await _authUser.signInUser(
-                //       context: context,
-                //       email: emailController.text,
-                //       password: passwordController.text);
-
-                //   stopLoading();
-                // }
               }),
           Row(
             children: const [
@@ -99,4 +99,56 @@ class _SignInFormComponentState extends State<SignInFormComponent> {
       ),
     );
   }
+
+  void _openCountryPickerDialog() => showDialog(
+        context: context,
+        builder: (context) => Theme(
+          data: Theme.of(context).copyWith(primaryColor: Colors.pink),
+          child: CountryPickerDialog(
+            titlePadding: EdgeInsets.all(8.0),
+            searchCursorColor: Colors.pinkAccent,
+            searchInputDecoration: InputDecoration(hintText: 'Search...'),
+            isSearchable: true,
+            title: Text('Select your phone code'),
+            onValuePicked: (Country country) =>
+                setState(() => _selectedDialogCountry = country),
+            itemBuilder: _buildDialogItem,
+            priorityList: [
+              CountryPickerUtils.getCountryByIsoCode('TR'),
+              CountryPickerUtils.getCountryByIsoCode('US'),
+            ],
+          ),
+        ),
+      );
+}
+
+_buildCountryPickerDropdownSoloExpanded({BuildContext? context}) {
+  return SizedBox(
+    width: 120,
+    child: CountryPickerDropdown(
+      iconSize: 20,
+      //show'em (the text fields) you're in charge now
+      onTap: () => FocusScope.of(context!).requestFocus(FocusNode()),
+      //if you want your dropdown button's selected item UI to be different
+      //than itemBuilder's(dropdown menu item UI), then provide this selectedItemBuilder.
+      onValuePicked: (Country country) {
+        print("${country.name}");
+      },
+      itemBuilder: (Country country) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            // SizedBox(width: 8.0),
+            CountryPickerUtils.getDefaultFlagImage(country),
+            // SizedBox(width: 8.0),
+            Text(country.phoneCode),
+          ],
+        );
+      },
+      itemHeight: null,
+      // isExpanded: true,
+      //initialValue: 'TR',
+      // icon: Icon(Icons.arrow_downward),
+    ),
+  );
 }

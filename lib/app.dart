@@ -1,5 +1,6 @@
 import 'package:ffeed_hub/Commons/Components/requset_sent_component.dart';
 import 'package:ffeed_hub/Views/Auths/choose_role.dart';
+import 'package:ffeed_hub/Views/Auths/pinCode_verification.dart';
 import 'package:ffeed_hub/Views/Auths/sign_in_view.dart';
 import 'package:ffeed_hub/Views/Auths/sign_up_view.dart';
 import 'package:ffeed_hub/Views/Donate/donate.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         "/successMesssage": (context) =>  const RequestSuccessMessageComponent(),
         "/pickup-details": (context) =>  const PickUpDetailsVC(),
         "/navigation_view": (context) =>  LocationNavigationVC(),
+        "/code-verification-view": (context) =>  PinCodeVerificationScreen(),
 
       },
     );
