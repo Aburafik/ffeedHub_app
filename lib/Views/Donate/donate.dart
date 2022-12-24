@@ -1,7 +1,9 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:ffeed_hub/Commons/Components/custom_button.dart';
 import 'package:ffeed_hub/Commons/color_theme.dart';
+import 'package:ffeed_hub/Providers/donate_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DonateFood extends StatefulWidget {
   DonateFood({super.key});
@@ -21,6 +23,7 @@ class _DonateFoodState extends State<DonateFood> {
 
   @override
   Widget build(BuildContext context) {
+    final donateProvider = Provider.of<DonateProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -146,8 +149,19 @@ class _DonateFoodState extends State<DonateFood> {
                 controller: moreInforController,
               ),
               CustomButtonComponent(
-                buttonText: "Comtinue",
-                onPressed: () {
+                buttonText: "Continue",
+                onPressed: () async {
+                  print(selectedValue);
+                  donateProvider.setDonateData(addData: [
+                    {
+                      "DietType": selectedValue,
+                      "foodName": foodNameController.text,
+                      "quantity": foodQuantityController.text,
+                      "infor": moreInforController.text
+                    }
+                  ]);
+
+                  print(donateProvider.donateDataList);
                   Navigator.pushNamed(context, "/donate-details-view");
                 },
               )
@@ -171,10 +185,9 @@ class CommonTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
       child: TextField(
-        
         controller: controller,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+          contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           hintText: hintText,
           filled: true,
           fillColor: lightGreyColor,

@@ -31,7 +31,7 @@ class ChooseRole extends StatelessWidget {
                   color: greenColor,
                   icon: FeatherIcons.user,
                   title: "Volunteer",
-                  subTitle: "Food pickUp and\n Deliver",
+                  subTitle: "Food pickUp\n and Deliver",
                   onTap: () =>
                       Navigator.pushNamed(context, "/pickup-request-view"),
                 ),
@@ -44,7 +44,7 @@ class ChooseRole extends StatelessWidget {
   }
 } //"/register-technician"
 
-     class UserAuthTypeCard extends StatelessWidget {
+class UserAuthTypeCard extends StatelessWidget {
   UserAuthTypeCard(
       {Key? key, this.onTap, this.title, this.icon, this.subTitle, this.color})
       : super(key: key);
@@ -62,11 +62,10 @@ class ChooseRole extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(30),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CircleAvatar(
               backgroundColor: color,
-              radius: 65,
+              radius: 50,
               child: Center(
                 child: Text(
                   title!,
@@ -77,7 +76,7 @@ class ChooseRole extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               subTitle!,
               textAlign: TextAlign.center,

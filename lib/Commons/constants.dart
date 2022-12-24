@@ -10,13 +10,11 @@ showToast({String? msg, Color? color}) {
       msg: msg!,
       gravity: ToastGravity.TOP,
       backgroundColor: color ?? Colors.green,
-      // textColor: Colors.white,
       fontSize: 16.0);
 }
 
 startLoading() {
   return EasyLoading.show(
-    // status: "Signing Up...",
     maskType: EasyLoadingMaskType.black,
   );
 }
@@ -35,7 +33,7 @@ AppBar commonAppBar(TextStyle appBarTextStyle, Map cordinates) {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
@@ -57,7 +55,7 @@ AppBar commonAppBar(TextStyle appBarTextStyle, Map cordinates) {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 25),
+              padding: const EdgeInsets.only(left: 20),
               child: FutureBuilder<List<Placemark>>(
                   future: placemarkFromCoordinates(lat, lng),
                   builder: (context, snapshot) {

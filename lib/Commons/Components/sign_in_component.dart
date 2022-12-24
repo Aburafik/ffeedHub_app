@@ -1,10 +1,11 @@
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
-import 'package:feather_icons/feather_icons.dart';
 import 'package:ffeed_hub/Commons/Components/custom_button.dart';
 import 'package:ffeed_hub/Commons/Components/text_form_field.dart';
 import 'package:ffeed_hub/Commons/color_theme.dart';
+import 'package:ffeed_hub/Providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignInFormComponent extends StatefulWidget {
   const SignInFormComponent({Key? key}) : super(key: key);
@@ -16,23 +17,29 @@ class SignInFormComponent extends StatefulWidget {
 class _SignInFormComponentState extends State<SignInFormComponent> {
   bool isVisible = true;
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  // AuthUser _authUser = AuthUser();
+  TextEditingController phonenNuberController = TextEditingController();
+  String countryCode = '';
   Country _selectedDialogCountry =
-      CountryPickerUtils.getCountryByPhoneCode('90');
-  Widget _buildDialogItem(Country country) => Row(
-        children: <Widget>[
-          CountryPickerUtils.getDefaultFlagImage(country),
-          SizedBox(width: 8.0),
-          Text("+${country.phoneCode}"),
-          SizedBox(width: 8.0),
-          // Flexible(child: Text(country.name))
-        ],
-      );
+      CountryPickerUtils.getCountryByPhoneCode('233');
+  Widget _buildDialogItem(Country country) {
+    countryCode = country.phoneCode;
+
+    print(countryCode);
+
+    return Row(
+      children: [
+        CountryPickerUtils.getDefaultFlagImage(country),
+        const SizedBox(width: 8.0),
+        Text("+${country.phoneCode}"),
+        SizedBox(width: 8.0),
+      ],
+    );
+  }
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<Authprovider>(context);
     return Form(
       key: _formKey,
       child: Column(
@@ -50,7 +57,7 @@ class _SignInFormComponentState extends State<SignInFormComponent> {
               ),
               Expanded(
                 child: CustomTextFormField(
-                  controller: emailController,
+                  controller: phonenNuberController,
                   hintText: "Enter phoneNumber",
                   hasPreffix: true,
                   // prefixIcon: FeatherIcons.mail,
@@ -58,24 +65,31 @@ class _SignInFormComponentState extends State<SignInFormComponent> {
               ),
             ],
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, "/reset-password-view"),
-                child: Text(
-                  "Forgot password?",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(color: blueColor),
-                ),
-              )),
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: () => Navigator.pushNamed(
+                context,
+                "/reset-password-view",
+                arguments: {},
+              ),
+              child: Text(
+                "Forgot password?",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: blueColor),
+              ),
+            ),
+          ),
           CustomButtonComponent(
               buttonText: "Login",
               onPressed: () {
-                Navigator.pushNamed(context, "/code-verification-view");
+                // authProvider.verifyPhone(
+                //     phoneNumber: "+$countryCode${phonenNuberController.text}",
+                //     context: context);
+                Navigator.pushNamed(context, "/choose-role");
                 // if (_formKey.currentState!.validate()) {
               }),
           Row(
@@ -105,11 +119,11 @@ class _SignInFormComponentState extends State<SignInFormComponent> {
         builder: (context) => Theme(
           data: Theme.of(context).copyWith(primaryColor: Colors.pink),
           child: CountryPickerDialog(
-            titlePadding: EdgeInsets.all(8.0),
+            titlePadding: const EdgeInsets.all(8.0),
             searchCursorColor: Colors.pinkAccent,
-            searchInputDecoration: InputDecoration(hintText: 'Search...'),
+            searchInputDecoration: const InputDecoration(hintText: 'Search...'),
             isSearchable: true,
-            title: Text('Select your phone code'),
+            title: const Text('Select your phone code'),
             onValuePicked: (Country country) =>
                 setState(() => _selectedDialogCountry = country),
             itemBuilder: _buildDialogItem,
@@ -120,35 +134,4 @@ class _SignInFormComponentState extends State<SignInFormComponent> {
           ),
         ),
       );
-}
-
-_buildCountryPickerDropdownSoloExpanded({BuildContext? context}) {
-  return SizedBox(
-    width: 120,
-    child: CountryPickerDropdown(
-      iconSize: 20,
-      //show'em (the text fields) you're in charge now
-      onTap: () => FocusScope.of(context!).requestFocus(FocusNode()),
-      //if you want your dropdown button's selected item UI to be different
-      //than itemBuilder's(dropdown menu item UI), then provide this selectedItemBuilder.
-      onValuePicked: (Country country) {
-        print("${country.name}");
-      },
-      itemBuilder: (Country country) {
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            // SizedBox(width: 8.0),
-            CountryPickerUtils.getDefaultFlagImage(country),
-            // SizedBox(width: 8.0),
-            Text(country.phoneCode),
-          ],
-        );
-      },
-      itemHeight: null,
-      // isExpanded: true,
-      //initialValue: 'TR',
-      // icon: Icon(Icons.arrow_downward),
-    ),
-  );
 }

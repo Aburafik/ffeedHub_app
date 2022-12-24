@@ -43,19 +43,23 @@ class _HomeViewState extends State<HomeView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 15),
-            TextField(
+           const TextField(
+              cursorColor: Colors.grey,
+              textAlign: TextAlign.center,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: lightGreyColor,
-                contentPadding: const EdgeInsets.symmetric(vertical: 5),
+                contentPadding:  EdgeInsets.symmetric(vertical: 5),
                 hintText: "Search NGO or Hunger spot",
-                prefixIcon: const Icon(
+                suffixIcon:Icon(
                   FeatherIcons.search,
                   color: blackColor,
                 ),
                 border: OutlineInputBorder(
                     borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(20)),
+                    // borderRadius: BorderRadius.circular(10)
+                    
+                    ),
               ),
             ),
             Padding(
@@ -81,13 +85,13 @@ class _HomeViewState extends State<HomeView> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: primaryColor,
-        onPressed: () {
-          Navigator.pushNamed(context, "/donate-view");
-        },
-        child: const Icon(Icons.rice_bowl),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: primaryColor,
+      //   onPressed: () {
+      //     Navigator.pushNamed(context, "/donate-view");
+      //   },
+      //   child: const Icon(Icons.rice_bowl),
+      // ),
     );
   }
 }

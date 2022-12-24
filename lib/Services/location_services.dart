@@ -12,6 +12,7 @@ class LocationService {
   double? lng;
 
   Future<Position> determinePosition(BuildContext context) async {
+    
     LocationProvider locationProvider =
         Provider.of<LocationProvider>(context, listen: false);
     final prefs = await SharedPreferences.getInstance();

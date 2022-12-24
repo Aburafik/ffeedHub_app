@@ -1,9 +1,9 @@
 import 'package:ffeed_hub/Commons/Components/custom_button.dart';
-import 'package:ffeed_hub/Commons/Components/pickup_time_component.dart';
-import 'package:ffeed_hub/Commons/Components/time_zone_selector.dart';
 import 'package:ffeed_hub/Commons/color_theme.dart';
 import 'package:ffeed_hub/Commons/Components/delivery_details_card.dart';
+import 'package:ffeed_hub/Providers/donate_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DonateFoodDetails extends StatefulWidget {
   const DonateFoodDetails({super.key});
@@ -14,11 +14,24 @@ class DonateFoodDetails extends StatefulWidget {
 
 class _DonateFoodDetailsState extends State<DonateFoodDetails> {
   String? selectedValue;
-
+  final _timeC = TextEditingController();
   String? selectedTimeZone;
+  TimeOfDay timeOfDay = TimeOfDay.now();
+  Future displayTimePicker(BuildContext context) async {
+    var time = await showTimePicker(context: context, initialTime: timeOfDay);
+
+    if (time != null) {
+      setState(() {
+        _timeC.text = "${time.hour}:${time.minute}:${time.period.name}";
+      });
+      print(_timeC.text);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final donateProvider = Provider.of<DonateProvider>(context);
+
     TextStyle textStyle = Theme.of(context)
         .textTheme
         .bodyText1!
@@ -42,7 +55,9 @@ class _DonateFoodDetailsState extends State<DonateFoodDetails> {
                 child: Text("Food Details",
                     style: textStyle.copyWith(fontWeight: FontWeight.bold)),
               ),
-               DeliveryDetailsCard(onTap: (){},),
+              DeliveryDetailsCard(
+                onTap: () {},
+              ),
               const SizedBox(height: 50),
               Text(
                 "Delivery Type",
@@ -88,50 +103,27 @@ class _DonateFoodDetailsState extends State<DonateFoodDetails> {
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Row(
-                  children: [
-                    const PickupTimeSelectorComponent(),
-                    Text(
-                      ":",
-                      style: textStyle.copyWith(
-                          fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                    const PickupTimeSelectorComponent(),
-                    const SizedBox(width: 20),
-                    Column(
-                      children: [
-                        TimeZoneSelectorComponent(
-                          selectedColor: selectedTimeZone == "AM"
-                              ? primaryColor
-                              : lightGreyColor,
-                          title: "AM",
-                          onTap: () {
-                            setState(() => selectedTimeZone = "AM");
-                          },
-                        ),
-                        const SizedBox(height: 5),
-                        TimeZoneSelectorComponent(
-                          selectedColor: selectedTimeZone == "PM"
-                              ? primaryColor
-                              : lightGreyColor,
-                          title: "PM",
-                          onTap: () {
-                            setState(() => selectedTimeZone = "PM");
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 200)
-                  ],
-                ),
-              ),
+
+              GestureDetector(
+                  child: Text("Select Time"),
+                  onTap: () => displayTimePicker(context)
+                 
+
+                  ),
+
               const SizedBox(height: 50),
               CustomButtonComponent(
                 buttonText: "CONFIRM",
                 onPressed: () {
+                  donateProvider.setDonateData(addData: [
+                    {
+                      "deliveryType": selectedValue,
+                      "deliveryTime": _timeC.text
+                    },
+                  ]);
                   Navigator.pushNamed(context, "/successMesssage");
+
+                  print(donateProvider.donateDataList);
                 },
               ),
             ],

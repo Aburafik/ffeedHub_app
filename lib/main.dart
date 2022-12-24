@@ -1,3 +1,5 @@
+import 'package:ffeed_hub/Providers/auth_provider.dart';
+import 'package:ffeed_hub/Providers/donate_provider.dart';
 import 'package:ffeed_hub/Providers/location_provider.dart';
 import 'package:ffeed_hub/app.dart';
 import 'package:ffeed_hub/firebase_options.dart';
@@ -12,6 +14,8 @@ void main() async {
   );
   runApp(MultiProvider(providers: [
     ListenableProvider<LocationProvider>(
-        create: (context) => LocationProvider()),
+create: (context) => LocationProvider()),
+    ListenableProvider<Authprovider>(create: (context) => Authprovider()),
+    ListenableProvider<DonateProvider>(create: (context) => DonateProvider()),
   ], child: const MyApp()));
 }

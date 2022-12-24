@@ -1,15 +1,14 @@
 import 'dart:async';
 
 import 'package:ffeed_hub/Commons/Components/custom_button.dart';
+import 'package:ffeed_hub/Providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:provider/provider.dart';
 
 class PinCodeVerificationScreen extends StatefulWidget {
-  final String? phoneNumber;
-
-  const PinCodeVerificationScreen({
+  PinCodeVerificationScreen({
     Key? key,
-    this.phoneNumber,
   }) : super(key: key);
 
   @override
@@ -53,6 +52,11 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<Authprovider>(context);
+    final args = ModalRoute.of(context)!.settings.arguments as List;
+    print("####################>>>>>>>>>>>>>>>>${args[0]}");
+    // print(widget.authdata![1]);
+    // print(widget.authdata![2]);
     return Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -62,15 +66,13 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
           child: ListView(
             children: <Widget>[
               const SizedBox(height: 30),
-
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height / 3,
-              //   child: ClipRRect(
-              //     borderRadius: BorderRadius.circular(30),
-              //     child: Image.asset(Constants.otpGifImage),
-              //   ),
-              // ),
-
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 3,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  // child: Image.asset(Constants.otpGifImage),
+                ),
+              ),
               const SizedBox(height: 8),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -85,10 +87,10 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
                 child: RichText(
                   text: TextSpan(
-                      text: "Enter the code sent to ",
-                      children: [
+                      text: "Enter the code sent to ${args[1]}",
+                      children: const [
                         TextSpan(
-                          text: "${widget.phoneNumber}",
+                          text: "",
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -115,7 +117,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         color: Colors.green.shade600,
                         fontWeight: FontWeight.bold,
                       ),
-                      length: 4,
+                      length: 6,
                       obscureText: true,
                       obscuringCharacter: '*',
 
@@ -144,6 +146,10 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
 
                       onCompleted: (v) {
                         debugPrint("Completed");
+                        authProvider.verifyOTP(
+                            context: context,
+                            smsCode: textEditingController.text,
+                            verificationId: args[0].toString());
                       },
                       // onTap: () {
                       //   print("Pressed");
@@ -201,7 +207,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                   onPressed: () {
                     formKey.currentState!.validate();
                     // conditions for validating
-                    if (currentText.length != 4 || currentText != "1234") {
+                    if (currentText.length != 6) {
                       errorController!.add(
                         ErrorAnimationType.shake,
                       ); // Triggering error shake animation
@@ -210,6 +216,10 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                       setState(
                         () {
                           hasError = false;
+                          authProvider.verifyOTP(
+                              context: context,
+                              smsCode: textEditingController.text,
+                              verificationId: args[0].toString());
                           snackBar("OTP Verified!!");
                         },
                       );
@@ -219,29 +229,6 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
               const SizedBox(
                 height: 16,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Flexible(
-                      child: TextButton(
-                    child: const Text("Clear"),
-                    onPressed: () {
-                      textEditingController.clear();
-                    },
-                  )),
-                  Flexible(
-                      child: TextButton(
-                    child: const Text("Set Text"),
-                    onPressed: () {
-                      setState(
-                        () {
-                          textEditingController.text = "1234";
-                        },
-                      );
-                    },
-                  )),
-                ],
-              )
             ],
           ),
         ),

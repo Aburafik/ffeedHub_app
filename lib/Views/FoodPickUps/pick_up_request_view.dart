@@ -37,8 +37,9 @@ class FoodPickRequestVC extends StatelessWidget {
                   color: blackColor,
                 ),
                 border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(20)),
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(20),
+                ),
               ),
             ),
             Padding(
@@ -63,13 +64,6 @@ class FoodPickRequestVC extends StatelessWidget {
             ))
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: primaryColor,
-        onPressed: () {
-          Navigator.pushNamed(context, "/donate-view");
-        },
-        child: const Icon(Icons.rice_bowl),
       ),
     );
   }

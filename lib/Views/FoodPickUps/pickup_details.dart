@@ -53,16 +53,36 @@ class _PickUpDetailsVCState extends State<PickUpDetailsVC> {
                           ],
                         ),
                         Expanded(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            DeliveryPickUpDetailsCard(),
-                            DeliveryPickUpDetailsCard(),
-                          ],
-                        ))
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              DeliveryPickUpDetailsCard(
+                                pickUpsTitle: "Pick Up",
+                                title: "Kumasi",
+                                location: "Accra",
+                                contact: "0551143980",
+                                onGotoLocation: () {
+                                  print("Routing to location");
+                                },
+                                onPhoneCall: () {},
+                              ),
+                              DeliveryPickUpDetailsCard(
+                                pickUpsTitle: "Drop off",
+                                title: "Tamale",
+                                location: "Cape Coast",
+                                contact: "033586776",
+                                onGotoLocation: () {
+                                  print("Routing to location");
+                                },
+                                onPhoneCall: () {},
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
+                  SizedBox(height: 15),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -82,7 +102,7 @@ class _PickUpDetailsVCState extends State<PickUpDetailsVC> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: CustomButtonComponent(
-                      buttonText: "PROCEED",
+                      buttonText: "Complete Delivery",
                       onPressed: () {
                         MapUtils.openMap();
                       },
@@ -103,21 +123,30 @@ class _PickUpDetailsVCState extends State<PickUpDetailsVC> {
       radius: 15,
       child: Text(
         value,
-        style: TextStyle(fontSize: 10),
+        style: const TextStyle(fontSize: 10),
       ),
     );
   }
 }
 
 class DeliveryPickUpDetailsCard extends StatelessWidget {
-  DeliveryPickUpDetailsCard({
-    Key? key,
-  }) : super(key: key);
-
+  DeliveryPickUpDetailsCard(
+      {Key? key,
+      this.contact,
+      this.location,
+      this.title,
+      this.imageUrl,
+      this.pickUpsTitle,
+      this.onGotoLocation,
+      this.onPhoneCall})
+      : super(key: key);
   String? title;
-
   String? location;
   String? contact;
+  String? imageUrl;
+  String? pickUpsTitle;
+  Function()? onGotoLocation;
+  Function()? onPhoneCall;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +160,7 @@ class DeliveryPickUpDetailsCard extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Text("Location"),
+              child: Text(pickUpsTitle!),
             ),
             Expanded(
               child: Row(
@@ -151,47 +180,57 @@ class DeliveryPickUpDetailsCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          "title!",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                          title!,
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         ),
                         Row(
-                          children: const [
-                            Icon(
+                          children: [
+                            const Icon(
                               FeatherIcons.mapPin,
                               size: 20,
                             ),
                             SizedBox(width: 10),
-                            Text("location!"),
+                            Text(location!),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
-                              children: const [
-                                Icon(
-                                  FeatherIcons.phoneCall,
-                                  size: 20,
-                                ),
-                                SizedBox(width: 10),
-                                Text("contact!"),
+                              children: [
+                                actionButton(
+                                    icon: FeatherIcons.phoneCall,
+                                    onTap: onPhoneCall),
+                                const SizedBox(width: 10),
+                                Text(contact!),
                               ],
                             ),
-                            const Icon(Icons.directions)
+                            actionButton(
+                                icon: Icons.directions, onTap: onGotoLocation)
                           ],
                         ),
                       ],
                     ),
-                  )
+                  ) 
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  actionButton({IconData? icon, Function()? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Icon(
+        icon,
+        size: 20,
       ),
     );
   }
@@ -201,8 +240,7 @@ class MapUtils {
   MapUtils._();
 
   static Future<void> openMap() async {
-    String googleUrl =
-        'https://www.google.com/maps/search/?api=1&query=Kasoa_market';
+    String googleUrl = 'https://www.google.com/maps/search/?api=1&query=5.498194,-0.4161389';
     if (await canLaunchUrl(Uri.parse(googleUrl))) {
       await launchUrl(Uri.parse(googleUrl));
     } else {

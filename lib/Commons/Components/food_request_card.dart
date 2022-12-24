@@ -11,7 +11,7 @@ class FoodRequestCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, "/donate-view");
+        Navigator.pushNamed(context, "/about-org");
       },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
@@ -69,7 +69,7 @@ class FoodRequestCard extends StatelessWidget {
                           size: 20,
                           color: blackColor,
                         ),
-                        Text("20km")
+                        Text("Tamale")
                       ],
                     )
                   ],

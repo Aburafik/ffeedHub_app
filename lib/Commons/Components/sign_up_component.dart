@@ -92,6 +92,7 @@ class _SignUpFormComponentState extends State<SignUpFormComponent> {
             child: CustomButtonComponent(
               buttonText: "Create account",
               onPressed: () async {
+                Navigator.pushNamed(context, "/location_picker-view");
                 // if (_formKey.currentState!.validate()) {
                 //   startLoading();
 

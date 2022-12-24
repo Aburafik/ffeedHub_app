@@ -10,13 +10,21 @@ class PickupTimeSelectorComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: TextField(
-      // keyboardType: TextInputType.number,
       decoration: InputDecoration(
-          hintText: "Mnt",
-          filled: true,
-          fillColor: lightGreyColor,
-          contentPadding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+        hintText: "Mnt",
+        filled: true,
+        fillColor: Colors.grey[100],
+        contentPadding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.03),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
     ));
   }
 }
